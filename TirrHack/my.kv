@@ -1,0 +1,420 @@
+WindowManager:
+    FirstScreen:
+    Registry:
+    Create:
+    EnterFamily:
+    FamilyWindow:
+    NotesWindow:
+    AddNotesWindow:
+    FridgeWindow:
+    ViewFridgeWindow:
+    DeleteWindow:
+    SpecialDatesWindow:
+
+<FirstScreen>:
+    name: "firstScreen"
+
+    FloatLayout:
+
+        Button:
+            text: "Enter a Registered Family"
+            pos_hint: {"x": 0.25, "top":0.9}
+            size_hint: 0.5, 0.2
+            on_release:
+                root.regFamButton()
+
+        Button:
+            text: "Create a Family"
+            pos_hint:{ "x": 0.25, "top":0.6}
+            size_hint: 0.5, 0.2
+            on_release:
+                root.createButton()
+
+        Button:
+            text: "Register a Family"
+            pos_hint: {"x": 0.25, "top":0.3}
+            size_hint: 0.5, 0.2
+            on_release:
+                root.registerButton()
+
+
+<EnterFamily>
+    name: "enterFamily"
+
+    FloatLayout:
+
+        Button:
+            text:"Back"
+            pos_hint: {"x": 0.25, "top":0.2}
+            size_hint: 0.5, 0.1
+            on_release:
+                root.mainButton()
+
+
+<Registry>:
+    name: "registry"
+
+    familyID: familyID
+    password: password
+
+    FloatLayout:
+
+        Label:
+            pos_hint: {"x":0, "top":0.8}
+            size_hint: 0.5, 0.05
+            text: "Family ID No: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8}
+            size_hint: 0.4, 0.05
+            id: familyID
+            multiline: False
+
+        Label:
+            pos_hint: {"x":0, "top":0.8-0.13}
+            size_hint: 0.5, 0.05
+            text: "Password: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8-0.13}
+            size_hint: 0.4, 0.05
+            id: password
+            multiline: False
+            password: True
+
+        Button:
+            text: "Register"
+            pos_hint: {"x": 0.25, "top":0.8 - 0.26}
+            size_hint: 0.5, 0.1
+            on_release: root.ifFamExists()
+
+        Button:
+            text: "Back"
+            pos_hint: {"x": 0.25, "top":0.8 - 0.39}
+            size_hint: 0.5, 0.1
+            on_release:
+                app.root.current = "firstScreen"
+
+
+<Create>:
+    name: "create"
+
+    newFam: newFam
+    newID: newID
+    newPass: newPass
+    newPassRep: newPassRep
+
+    FloatLayout:
+
+        Label:
+            pos_hint: {"x":0, "top":0.8}
+            size_hint: 0.5, 0.05
+            text: "New Family Name: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8}
+            size_hint: 0.4, 0.05
+            id: newFam
+            multiline: False
+
+        Label:
+            pos_hint: {"x":0, "top":0.8-0.13}
+            size_hint: 0.5, 0.05
+            text: "Choose Your ID No: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8-0.13}
+            size_hint: 0.4, 0.05
+            id: newID
+            multiline: False
+
+        Label:
+            pos_hint: {"x":0, "top":0.8-0.26}
+            size_hint: 0.5, 0.05
+            text: "Password: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8-0.26}
+            size_hint: 0.4, 0.05
+            id: newPass
+            multiline: False
+            password: True
+
+        Label:
+            pos_hint: {"x":0, "top":0.8-0.39}
+            size_hint: 0.5, 0.05
+            text: "Confirm Password: "
+
+        TextInput:
+            pos_hint: {"x":0.5, "top":0.8-0.39}
+            size_hint: 0.4, 0.05
+            id: newPassRep
+            multiline: False
+            password: True
+
+        Button:
+            text: "Create"
+            pos_hint: {"x": 0.25, "top":0.8 - 0.52}
+            size_hint: 0.5, 0.1
+            on_release: root.addFamily()
+
+        Button:
+            text: "Back"
+            pos_hint: {"x": 0.25, "top":0.8 - 0.65}
+            size_hint: 0.5, 0.1
+            on_release:
+                app.root.current = "firstScreen"
+
+<FamilyWindow>
+    name: "family"
+
+    FloatLayout:
+
+        Button:
+            text: "N"
+            size_hint: 0.3, 0.2
+            pos_hint: {"x":0.05, "top":0.9}
+            on_release:
+                app.root.current = "notes"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "F"
+            size_hint: 0.3, 0.2
+            pos_hint: {"x":0.05, "top":0.6}
+            on_release:
+                app.root.current = "fridge"
+                root.manager.transition.direction = "right"
+
+        Button:
+            text: "D"
+            size_hint: 0.3, 0.2
+            pos_hint: {"x":0.05, "top":0.3}
+            on_release:
+                app.root.current = "specialdates"
+                root.manager.transition.direction = "right"
+
+        Label:
+            text: "Welcome"
+            size_hint: 0.4,0.2
+            pos_hint: {"x":0.5, "top":0.9}
+
+        TextInput:
+            multiline: True
+            size_hint: 0.5,0.6
+            pos_hint: {"x":0.425, "top":0.75}
+
+
+<NotesWindow>
+    name: "notes"
+
+
+    FloatLayout:
+        Button:
+            text: "Go Back"
+            size_hint: 0.8,0.1
+            pos_hint: {"x":0.09, "top":0.2}
+            on_release:
+                app.root.current = "family"
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: "Add Note"
+            size_hint: 0.8,0.1
+            pos_hint: {"x":0.09, "top":0.3}
+            on_release:
+                app.root.current = "addnotes"
+                root.manager.transition.direction = "left"
+
+
+<AddNotesWindow>
+    name: "addnotes"
+    note: note
+    note_title : note_title
+    FloatLayout:
+
+        Label:
+            text: "Title"
+            font_size: 35
+            size_hint: 0.25,0.1
+            pos_hint: {"x":0.02, "top":0.95}
+
+        TextInput:
+            id: note_title
+            size_hint: 0.7,0.08
+            pos_hint: {"x":0.2, "top":0.95}
+
+        Label:
+            text: "Note"
+            font_size: 35
+            size_hint: 0.25,0.1
+            pos_hint: {"x":0.03, "top":0.84}
+
+        TextInput:
+            id: note
+            multiline: True
+            size_hint: 0.8,0.47
+            pos_hint: {"x":0.1, "top":0.75}
+
+        Button:
+            text: "Add Note"
+            size_hint: 0.8,0.1
+            pos_hint: {"x":0.1, "top":0.25}
+            on_press: root.add_note_button()
+
+        Button:
+            text: "Go Back"
+            size_hint: 0.8,0.1
+            pos_hint: {"x":0.1, "top":0.15}
+            on_release:
+                app.root.current = "notes"
+                root.manager.transition.direction = "left"
+
+
+<FridgeWindow>
+    name: "fridge"
+    food: food
+    exp_date: exp_date
+
+    FloatLayout:
+
+        Label:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.1, "y":0.7}
+            text: "Food Name"
+
+        TextInput:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.5, "y":0.7}
+            id: food
+            multiline: False
+
+        Label:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.1, "y":0.5}
+            id: exp_date
+            text: "Days to eat"
+
+        TextInput:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.5, "y":0.5}
+            id: exp_date
+            multiline: False
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            size_hint: 0.8, 0.1
+            pos_hint: {"x":0.1, "y":0.3}
+            text: "Add to Fridge"
+            on_press: root.btn()
+
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            size_hint: 0.8, 0.1
+            pos_hint: {"x":0.1, "y":0.2}
+            text: "View Fridge"
+            on_release:
+                app.root.current = "viewfridge"
+                root.manager.transition.direction = "left"
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            size_hint: 0.8, 0.1
+            pos_hint: {"x":0.1, "y":0.1}
+            text: "Go Back"
+            on_release:
+                app.root.current = "family"
+                root.manager.transition.direction = "left"
+
+<ViewFridgeWindow>
+    name: "viewFridgeWindow"
+
+    food: food
+    exp_date: exp_date
+
+    FloatLayout:
+        cols: 1
+
+        FloatLayout:
+            cols: 2
+
+            Label:
+                size_hint: 0.4, 0.1
+                pos_hint: {"x":0.1, "y":0.9}
+                font_size: 30
+                id: food
+                color: 1,0,1,1
+                text: "Food Name"
+
+            Label:
+                size_hint: 0.4, 0.1
+                pos_hint: {"x":0.5, "y":0.9}
+                font_size: 40
+                id: exp_date
+                color: 1,0,1,1
+                text: "Exp Date"
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            text: "Delete Food"
+            pos_hint:{"x": 0.1, "y":0.1}
+            font_size: 40
+            size_hint:0.8, 0.1
+            on_release:
+                root.switchtodeletewindow()
+                root.manager.transition.direction = "left"
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            text: "Main Page"
+            pos_hint:{"x": 0.1, "y":0}
+            font_size: 40
+            size_hint:0.8, 0.1
+            on_release:
+                root.switchtofridgewindow()
+                root.manager.transition.direction = "right"
+
+<DeleteWindow>
+    name: "DeleteWindow"
+
+    deletefood: deletefood
+
+    FloatLayout:
+
+        Label:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.3, "y":0.8}
+            font_size: 40
+            color: 1,0,1,1
+            text: "Enter Food to Delete"
+
+        TextInput:
+            size_hint: 0.4, 0.1
+            pos_hint: {"x":0.3, "y":0.6}
+            font_size: 30
+            id: deletefood
+            multiline: False
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            text: "Delete Food"
+            pos_hint:{"x": 0.1, "y":0.1}
+            font_size: 40
+            size_hint:0.8, 0.1
+            on_press: root.delete_food()
+            on_release: root.on_enter()
+
+        Button:
+            background_color: 0.3, 0.5, 0.7, 1
+            text: "Go Back"
+            pos_hint:{"x": 0.1, "y":0}
+            font_size: 40
+            size_hint:0.8, 0.1
+            on_release:
+                app.root.current = "viewfridge"
+                root.manager.transition.direction = "right"
+
+
+<SpecialDatesWindow>
+    name: "specialdates"
